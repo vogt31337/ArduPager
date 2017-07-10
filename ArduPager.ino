@@ -1,22 +1,3 @@
-/**
- * 
- * Arduino   GND          CC1101 GND / 9
- * Arduino   VCC (+3.3v)  CC1101 VCC / 1
- * Arduino   13           CC1101 SCK / 4
- * Arduino   12           CC1101 SO (MISO) / 5
- * Arduino   11           CC1101 SI (MOSI) / 3
- * Arduino   10           CC1101 CSN (SS)  / 7
- * Arduino   02           CC1101 GD0 / 8
- * Arduino   03           Keypad interrupt
- * Arduino   09           PCD8544 D/C
- * Arduino   08           PCD8544 CS
- * Arduino   07           PCD8544 RST
- * Arduino   06           Button 3
- * Arduino   05           Button 2
- * Arduino   04           Button 1
- * 
- */
-
 #ifndef _ARDUINO_PAGER_
 #define _ARDUINO_PAGER_
 
@@ -34,15 +15,9 @@
 #include <Adafruit_GFX.h>
 #include <gfxfont.h>
 #include <Adafruit_PCD8544.h>
+
+// look for I/O definitions here
 #include "pins.h"
-
-// The LED is wired to the Arduino Output 4 (physical panStamp pin 19)
-#define LEDOUTPUT 4
-
-// Define Button pins
-#define BUTTON_3 6
-#define BUTTON_2 5
-#define BUTTON_1 4
 
 // The connection to the hardware chip CC1101 the RF Chip
 static CC1101 cc1101;
@@ -50,11 +25,7 @@ static CC1101 cc1101;
 // the display connection
 static Adafruit_PCD8544 lcd = Adafruit_PCD8544(SPI_PCD8544_DC, SPI_PCD8544_CS, SPI_PCD8544_RST);
 
-// byte b;
-// byte i;
 static byte syncWord = 199;
-// long counter = 0;
-// byte chan = 0;
 
 // a flag that a wireless packet has been received
 volatile boolean packetAvailable = false;
@@ -181,9 +152,9 @@ void setup() {
     digitalWrite(LEDOUTPUT, LOW);
 
     // define button pins as input
-    pinMode(BUTTON_3, INPUT)
-    pinMode(BUTTON_2, INPUT)
-    pinMode(BUTTON_1, INPUT)
+    pinMode(BUTTON_3, INPUT);
+    pinMode(BUTTON_2, INPUT);
+    pinMode(BUTTON_1, INPUT);
 
     // blink once to signal the setup
     blinker();
@@ -243,7 +214,7 @@ void displayOn() {
   setup_watchdog(WDTO_4S);
 }
 
-void ReadLQI() {
+byte ReadLQI() {
     byte lqi = 0;
     byte value = 0;
     lqi = (cc1101.readReg(CC1101_LQI, CC1101_STATUS_REGISTER));
@@ -252,12 +223,13 @@ void ReadLQI() {
     Serial.print("CC1101_LQI ");
     Serial.println(value);
 #endif
+  return value;
 }
 
 /**
  * Read the radio signal strength indicator
  */
-void ReadRSSI() {
+byte ReadRSSI() {
     byte rssi = 0;
     byte value = 0;
 
@@ -275,9 +247,11 @@ void ReadRSSI() {
     Serial.print("CC1101_RSSI ");
     Serial.println(value);
 #endif
+  return value;
 }
 
 void loop() {
+  // CC1101 has a packet available
     if (packetAvailable) {
         cli();
 #ifdef USE_UART        
@@ -316,7 +290,8 @@ void loop() {
         // Enable wireless reception interrupt
         attachInterrupt(0, cc1101signalsInterrupt, FALLING);
     }
-
+    
+// a button was pressed
     if (keyboardInt) {
         cli();
 

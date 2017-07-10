@@ -121,7 +121,7 @@ void CC1101::cmdStrobe(byte cmd)
 {
   cc1101_Select();                      // Select CC1101
   wait_Miso();                          // Wait until MISO goes low
-  SPI.transfer(cmd);                        // Send strobe command
+  SPI.transfer(cmd);                    // Send strobe command
   cc1101_Deselect();                    // Deselect CC1101
 }
 
@@ -143,8 +143,8 @@ byte CC1101::readReg(byte regAddr, byte regType)
   addr = regAddr | regType;
   cc1101_Select();                      // Select CC1101
   wait_Miso();                          // Wait until MISO goes low
-  SPI.transfer(addr);                       // Send register address
-  val = SPI.transfer(0x00);                 // Read result
+  SPI.transfer(addr);                   // Send register address
+  val = SPI.transfer(0x00);             // Read result
   cc1101_Deselect();                    // Deselect CC1101
 
   return val;
@@ -166,9 +166,9 @@ void CC1101::readBurstReg(byte * buffer, byte regAddr, byte len)
   addr = regAddr | READ_BURST;
   cc1101_Select();                      // Select CC1101
   wait_Miso();                          // Wait until MISO goes low
-  SPI.transfer(addr);                       // Send register address
+  SPI.transfer(addr);                   // Send register address
   for(i=0 ; i<len ; i++)
-    buffer[i] = SPI.transfer(0x00);         // Read result byte by byte
+    buffer[i] = SPI.transfer(0x00);     // Read result byte by byte
   cc1101_Deselect();                    // Deselect CC1101
 }
 

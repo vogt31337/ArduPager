@@ -1,3 +1,22 @@
+/**
+ * IO Mapping file. You can alter the pin numbers here.
+ * Arduino   GND          CC1101 GND / 9
+ * Arduino   VCC (+3.3v)  CC1101 VCC / 1
+ * Arduino   13           CC1101 SCK / 4
+ * Arduino   12           CC1101 SO (MISO) / 5
+ * Arduino   11           CC1101 SI (MOSI) / 3
+ * Arduino   10           CC1101 CSN (SS)  / 7
+ * Arduino   02           CC1101 GD0 / 8
+ * Arduino   03           Keypad interrupt
+ * Arduino   09           PCD8544 D/C
+ * Arduino   08           PCD8544 CS
+ * Arduino   07           PCD8544 RST
+ * Arduino   06           Button 3
+ * Arduino   05           Button 2
+ * Arduino   04           Button 1
+ * 
+ */
+
 #ifndef _PINS_H
 #define _PINS_H
 /**
@@ -26,6 +45,14 @@
 #define SPI_PCD8544_DC   9
 #define SPI_PCD8544_CS   8
 #define SPI_PCD8544_RST  7
+
+// The LED is wired to the Arduino Output 4 (physical panStamp pin 19)
+#define LEDOUTPUT 4
+
+// Define Button pins
+#define BUTTON_3 6
+#define BUTTON_2 5
+#define BUTTON_1 4
 
 #endif
 
