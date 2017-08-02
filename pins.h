@@ -23,36 +23,36 @@
  * SPI pins
  * CC1101
  */
-#define SPI_SS   10     // PB2 = SPI_SS
-#define SPI_MOSI 11     // PB3 = MOSI
-#define SPI_MISO 12     // PB4 = MISO
-#define SPI_SCK  13     // PB5 = SCK
-#define GDO0   2        // PD2 = INT0
+#define SPI_SS   17     // PB2 = SPI_SS
+#define SPI_MOSI 16     // PB3 = MOSI
+#define SPI_MISO 14     // PB4 = MISO
+#define SPI_SCK  15     // PB5 = SCK
+#define GDO0     3      // PD2 = INT0
 
 #define PORT_SPI_MISO  PINB
 #define BIT_SPI_MISO  4
 
 #define PORT_SPI_SS  PORTB
-#define BIT_SPI_SS   2
+#define BIT_SPI_SS   0
 
 #define PORT_GDO0  PIND
-#define BIT_GDO0  2
+#define BIT_GDO0   0
 
 /**
  * SPI pins
  * PCD8544
  */
-#define SPI_PCD8544_DC   9
+#define SPI_PCD8544_DC   7
 #define SPI_PCD8544_CS   8
-#define SPI_PCD8544_RST  7
+#define SPI_PCD8544_RST  9
 
 // The LED is wired to the Arduino Output 4 (physical panStamp pin 19)
-#define LEDOUTPUT 4
+#define LEDOUTPUT 24
 
 // Define Button pins
-#define BUTTON_3 6
-#define BUTTON_2 5
-#define BUTTON_1 4
+#define BUTTON_3 A2
+#define BUTTON_2 A1
+#define BUTTON_1 A0
 
 #endif
 

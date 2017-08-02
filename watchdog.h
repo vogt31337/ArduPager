@@ -25,7 +25,7 @@ void setup_watchdog(int timerPrescaler) {
   if (timerPrescaler > 7) bb |= (1<<5); // Set the special 5th bit if necessary
 
 
-#if defined __AVR_ATmega328P__ || defined __AVR_ATmega168P__ || defined __AVR_ATmega168__ || defined __AVR_ATmega328__ || defined __AVR_ATmega328V__ || defined __AVR_ATmega168V__
+#if defined __AVR_ATmega328P__ || defined __AVR_ATmega168P__ || defined __AVR_ATmega168__ || defined __AVR_ATmega328__ || defined __AVR_ATmega328V__ || defined __AVR_ATmega168V__ || defined __AVR_ATmega32U4__
 
   // ATmega328p or ATmega168p -- Arduino Uno, etc.
 
@@ -49,7 +49,7 @@ void setup_watchdog(int timerPrescaler) {
   // Set the interrupt enable, this will keep unit from resetting after each int
 
 #else
-  //??
+// ??
 #error "I don't know how to handle your AVR in setup_watchdog"
 #endif
 
